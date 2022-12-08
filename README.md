@@ -1,7 +1,7 @@
 # DummyCRMAppPCF
 Development template for opening a dialog application from a PCF button
 <br/>
-React/Reduc, MaterialUI, FluentUI
+React/Redux, MaterialUI, FluentUI
 <br/>
 <br/>
 <br/>
