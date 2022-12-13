@@ -1,6 +1,11 @@
+/* eslint-disable */
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
+
+import { useSelector, useDispatch, Provider } from 'react-redux';
+import { createStore, AnyAction, combineReducers } from "redux";
+import { store } from './globalstate';
 
 const columns: GridColDef[] = [
   { field: 'id', headerName: 'ID', width: 90 },
@@ -46,18 +51,23 @@ const rows = [
   { id: 9, name: 'T32452', material: '75434', ref: 65 },
 ];
 
-export default function ItemList() {
+
+
+export default function ItemList(props:any) {
   return (
-    <Box sx={{ height: 400, width: '100%' }}>
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        pageSize={5}
-        rowsPerPageOptions={[5]}
-        checkboxSelection
-        disableSelectionOnClick
-        experimentalFeatures={{ newEditingApi: true }}
-      />
-    </Box>
+    <>
+        Testdata: {props.testdata}
+        <Box sx={{ height: 400, width: '100%' }}>
+          <DataGrid
+            rows={rows}
+            columns={columns}
+            pageSize={5}
+            rowsPerPageOptions={[5]}
+            checkboxSelection
+            disableSelectionOnClick
+            experimentalFeatures={{ newEditingApi: true }}
+          />
+        </Box>
+    </>        
   );
 }

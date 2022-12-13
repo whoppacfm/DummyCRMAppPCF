@@ -1,8 +1,11 @@
 /* eslint-disable */
 
-//React
 import * as React from 'react';
+import { useState, useEffect } from 'react';
 import * as ReactDOM from 'react-dom';
+
+import { useSelector, useDispatch, Provider } from 'react-redux';
+import { createStore, AnyAction, combineReducers } from "redux";
 
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
@@ -29,6 +32,7 @@ import LibraryAddIcon from '@mui/icons-material/LibraryAdd';
 import { StackItemsList } from './dashboard';
 import ItemList from './items';
 import ItemInputForm from './newitem';
+import { store, loadStoreData } from './globalstate';
 
 
 const DialogTransition = React.forwardRef(function Transition(
@@ -70,7 +74,19 @@ const DummyCRM : React.FunctionComponent = () => {
         )              
     }
 
+    const dispatch = useDispatch();
 
+    useEffect(() => {
+        //Load async data once..
+        console.log("Load async data once..");
+        loadStoreData().then((data)=>{
+            dispatch({ type: 'data/dataloaded', data: data });
+        });
+    }, []);
+    
+    let testdata = useSelector((state) => state);
+    console.error("state data: " + testdata);
+    
     return (
         <>
             <div>
@@ -88,7 +104,7 @@ const DummyCRM : React.FunctionComponent = () => {
                     </IconButton>
 
                     <SimpleNavigationMenu />
-
+                    
                     <div style={{padding:"20px"}}>
 
                         {menuValue==0 &&<div>
@@ -100,16 +116,16 @@ const DummyCRM : React.FunctionComponent = () => {
                         {menuValue==1 &&<div>
                             <br/>
                             <br/>
-                            <ItemList />
+                            <ItemList testdata={testdata} />
                         </div>}
-                                
+
                         {menuValue==2 &&<div>
                             <br/>
                             <br/>
                             <ItemInputForm />
                         </div>}
 
-                    </div>                    
+                    </div>
 
                     {/*
                     <AppBar sx={{ position: 'relative' }}>
@@ -160,9 +176,9 @@ export function Render(container:any) {
     */
    
     ReactDOM.render(
-      <>
-        <div><DummyCRM /></div>
-      </>
+        <Provider store={store}>
+            <DummyCRM />
+        </Provider>
       , container
     );
   
