@@ -111,7 +111,7 @@ const DummyCRM : React.FunctionComponent = () => {
                         <CloseIcon />
                     </IconButton>
 
-                    <div>
+                    <div style={{width:"800px"}}>
 
                         <SimpleNavigationMenu />
                         
