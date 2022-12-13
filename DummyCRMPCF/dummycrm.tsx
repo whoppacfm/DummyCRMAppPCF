@@ -111,41 +111,45 @@ const DummyCRM : React.FunctionComponent = () => {
                         <CloseIcon />
                     </IconButton>
 
-                    <SimpleNavigationMenu />
-                    
-                    {showLoadingData==true && 
-                        <div style={{width:"100%", textAlign:"center"}}>
-                            <CircularProgress style={{padding:"20px"}} />
-                        </div>
-                    }
+                    <div>
 
-                    {showLoadingData==false &&
+                        <SimpleNavigationMenu />
+                        
+                        {showLoadingData==true && 
+                            <>
+                                <CircularProgress style={{margin:"50px", float:"left"}} />
+                                <p style={{fontFamily:"Arial"}}>Loading Data..</p>
+                            </>
+                        }
 
-                        <div style={{padding:"20px"}}>
+                        {showLoadingData==false &&
 
-                            {menuValue==0 &&<div>
-                                <br/>
-                                <br/>
-                                <StackItemsList />
-                            </div>}
+                            <div style={{padding:"20px"}}>
 
-                            {menuValue==1 &&<div>
-                                <Button variant="outlined" onClick={handleClickLoadData}>
-                                    Load data 2
-                                </Button>
-                                <br/>
-                                <br/>
-                                <ItemList testdata={testdata} />
-                            </div>}
+                                {menuValue==0 &&<div>
+                                    <br/>
+                                    <br/>
+                                    <StackItemsList />
+                                </div>}
 
-                            {menuValue==2 &&<div>
-                                <br/>
-                                <br/>
-                                <ItemInputForm />
-                            </div>}
+                                {menuValue==1 &&<div>
+                                    <Button variant="outlined" onClick={handleClickLoadData}>
+                                        Load data 2
+                                    </Button>
+                                    <br/>
+                                    <br/>
+                                    <ItemList testdata={testdata} />
+                                </div>}
 
-                        </div>
-                    }
+                                {menuValue==2 &&<div>
+                                    <br/>
+                                    <br/>
+                                    <ItemInputForm />
+                                </div>}
+
+                            </div>
+                        }
+                    </div>
 
                     {/*
                     <AppBar sx={{ position: 'relative' }}>
