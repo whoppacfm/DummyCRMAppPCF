@@ -20,10 +20,10 @@ import Typography from '@mui/material/Typography';
 import CloseIcon from '@mui/icons-material/Close';
 import Slide from '@mui/material/Slide';
 import { TransitionProps } from '@mui/material/transitions';
-
 import Box from '@mui/material/Box';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
+import CircularProgress from '@mui/material/CircularProgress';
 
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import CategoryIcon from '@mui/icons-material/Category';
@@ -47,6 +47,7 @@ const DialogTransition = React.forwardRef(function Transition(
 const DummyCRM : React.FunctionComponent = () => {
     const [open, setOpen] = React.useState(false);
     const [menuValue, setMenuValue] = React.useState(0);
+    const [showLoadingData, setShowLoadingData] = React.useState(false);
 
     const handleClickOpen = () => {
       setOpen(true);
@@ -57,8 +58,9 @@ const DummyCRM : React.FunctionComponent = () => {
     };
     
     const handleClickLoadData = () => {
-        loadStoreData(1).then((data)=>{
-            dispatch({ type: 'data/dataloaded', data: data });
+        setShowLoadingData(true);
+        loadStoreData(1, dispatch).then((data)=>{
+            setShowLoadingData(false);
         });
     }
 
@@ -85,8 +87,9 @@ const DummyCRM : React.FunctionComponent = () => {
     useEffect(() => {
         //Load async data once..
         console.log("Load async data once..");
-        loadStoreData(0).then((data)=>{
-            dispatch({ type: 'data/dataloaded', data: data });
+        setShowLoadingData(true);
+        loadStoreData(0, dispatch).then((data)=>{
+            setShowLoadingData(false);
         });
     }, []);
     
@@ -122,7 +125,8 @@ const DummyCRM : React.FunctionComponent = () => {
                         {menuValue==1 &&<div>
                             <Button variant="outlined" onClick={handleClickLoadData}>
                                 Load data 2
-                            </Button>                            
+                            </Button>
+                            {showLoadingData==true && <CircularProgress />}
                             <br/>
                             <br/>
                             <ItemList testdata={testdata} />
