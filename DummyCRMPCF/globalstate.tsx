@@ -18,13 +18,16 @@ function reducerData(stateData:Array<any> = initialState, action:AnyAction) {
 
 export const store = createStore(reducerData as any);
 
-export function loadStoreData(type:any) {
+export function loadStoreData(type:any, dispatch:any) {
   return new Promise((resolve, reject) => {
     let data = ["1", "2", "3"];
     if(type==1) {
       data = ["4", "5", "6"]
     }
-    setTimeout(function() { resolve(data) }, 8000);
+    setTimeout(function() { 
+      dispatch({ type: 'data/dataloaded', data: data });
+      resolve(data) 
+    }, 5000);
   });
 }
 
