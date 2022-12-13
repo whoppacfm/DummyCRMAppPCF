@@ -83,18 +83,17 @@ const DummyCRM : React.FunctionComponent = () => {
     }
 
     const dispatch = useDispatch();
+    document.title = new Date() + "";
+    let testdata:any[] = useSelector((state) => state) as Array<any>;
+    console.error("state data: " + testdata);
 
     useEffect(() => {
-        //Load async data once..
         console.log("Load async data once..");
         setShowLoadingData(true);
         loadStoreData(0, dispatch).then((data)=>{
             setShowLoadingData(false);
         });
     }, []);
-    
-    let testdata = useSelector((state) => state);
-    console.error("state data: " + testdata);
     
     return (
         <>
