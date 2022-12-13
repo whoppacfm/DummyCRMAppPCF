@@ -55,6 +55,12 @@ const DummyCRM : React.FunctionComponent = () => {
     const handleClose = () => {
       setOpen(false);
     };
+    
+    const handleClickLoadData = () => {
+        loadStoreData(1).then((data)=>{
+            dispatch({ type: 'data/dataloaded', data: data });
+        });
+    }
 
     function SimpleNavigationMenu() {
         return (
@@ -79,7 +85,7 @@ const DummyCRM : React.FunctionComponent = () => {
     useEffect(() => {
         //Load async data once..
         console.log("Load async data once..");
-        loadStoreData().then((data)=>{
+        loadStoreData(0).then((data)=>{
             dispatch({ type: 'data/dataloaded', data: data });
         });
     }, []);
@@ -114,6 +120,9 @@ const DummyCRM : React.FunctionComponent = () => {
                         </div>}
 
                         {menuValue==1 &&<div>
+                            <Button variant="outlined" onClick={handleClickLoadData}>
+                                Load data 2
+                            </Button>                            
                             <br/>
                             <br/>
                             <ItemList testdata={testdata} />
